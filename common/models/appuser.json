@@ -1,0 +1,50 @@
+{
+  "name": "appuser",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "mobile": {
+      "type": "string",
+      "id": true,
+      "required": true
+    },
+    "watermelonNo": {
+      "type": "string",
+      "required": true
+    },
+    "createAt": {
+      "type": "Date",
+      "required": true
+    },
+    "password": {
+      "type": "string",
+      "required": true
+    },
+    "nickname": {
+      "type": "string",
+      "required": true
+    },
+    "sex": {
+      "type": "boolean"
+    },
+    "avater": {
+      "type": "string"
+    },
+    "friendsList": {
+      "type": "array"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "reviews": {
+      "type": "hasMany",
+      "model": "review",
+      "foreignKey": "publisherId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
