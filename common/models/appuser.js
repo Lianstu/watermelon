@@ -13,6 +13,7 @@ module.exports = function(Appuser) {
     watermeuser.password =makecrypto(userInfo.password);
     watermeuser.sex = userInfo.sex;
     watermeuser.createAt = new Date();
+    watermeuser.friendsList = [userInfo.mobile];
     watermeuser.watermelonNo = makewatermelonNo();//以时间戳形式生成
     watermeuser.avater = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1491125392261&di=6cad18adb957545015d2b34666b1eb7c&imgtype=0&src=http%3A%2F%2Fimgqn.koudaitong.com%2Fupload_files%2F2015%2F05%2F15%2FFuqVchtUU1Tw_PVD6bK321G9ez6Q.jpg"
     console.log(watermeuser)
@@ -28,19 +29,21 @@ module.exports = function(Appuser) {
                   cb("code已过期")
                 }else{//未过期
                   if(result.code == userInfo.code){//两个code相等正确逻辑处理
-                    Appuser.create(watermeuser,function(err,result){
-                      if(err){
-                        userInfo.app.logger.error(watermeuser,"创建数据失败")
-                        cb(err)
-                      }else {
-                        Appuser.app.models.lbuser.create({username:userInfo.mobile,password:userInfo.password,email:userInfo.mobile+"@qq.com"},function(err,result){
-                          if(!err){
-                            if(result){
-                              console.log(result)
+                    Appuser.app.models.lbuser.create({username:userInfo.mobile,password:userInfo.password,email:userInfo.mobile+"@qq.com"},function(err,result){
+                      if(!err){
+                        if(result){
+                          //console.log("***lbuser*****",result)
+                          watermeuser.lbuserId = result.id;
+                          //console.log("***lbuser*****",result, result.id)
+                          Appuser.create(watermeuser,function(err,result){
+                            if(err){
+                              userInfo.app.logger.error(watermeuser,"创建数据失败")
+                              cb(err)
+                            }else {
+                              cb(null,watermeuser)
                             }
-                          }
-                        })
-                        cb(null,watermeuser)
+                          })
+                        }
                       }
                     })
                   }else{//code不等提示code错误

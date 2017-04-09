@@ -34,7 +34,8 @@
       "type": "string"
     },
     "friendsList": {
-      "type": "array"
+      "type": "array",
+      "default": []
     }
   },
   "validations": [],
