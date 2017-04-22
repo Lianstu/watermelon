@@ -33,6 +33,10 @@
     "avater": {
       "type": "string"
     },
+    "lbuserId":{
+      "type": "Object",
+      "required": true
+    },
     "friendsList": {
       "type": "array",
       "default": []

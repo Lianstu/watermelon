@@ -13,7 +13,6 @@ module.exports = function(Appuser) {
     watermeuser.password =makecrypto(userInfo.password);
     watermeuser.sex = userInfo.sex;
     watermeuser.createAt = new Date();
-    watermeuser.friendsList = [userInfo.mobile];
     watermeuser.watermelonNo = makewatermelonNo();//以时间戳形式生成
     watermeuser.avater = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1491125392261&di=6cad18adb957545015d2b34666b1eb7c&imgtype=0&src=http%3A%2F%2Fimgqn.koudaitong.com%2Fupload_files%2F2015%2F05%2F15%2FFuqVchtUU1Tw_PVD6bK321G9ez6Q.jpg"
     console.log(watermeuser)
@@ -34,6 +33,7 @@ module.exports = function(Appuser) {
                         if(result){
                           //console.log("***lbuser*****",result)
                           watermeuser.lbuserId = result.id;
+                          watermeuser.friendsList = [result.id];
                           //console.log("***lbuser*****",result, result.id)
                           Appuser.create(watermeuser,function(err,result){
                             if(err){

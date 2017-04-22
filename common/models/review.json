@@ -12,9 +12,6 @@
     },
     "comment": {
       "type": "string"
-    },
-    "up": {
-      "type": "number"
     }
   },
   "validations": [],
