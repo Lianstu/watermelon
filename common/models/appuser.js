@@ -91,12 +91,13 @@ module.exports = function(Appuser) {
       if(!err){
         if(result){//查找无错误,且结果存在
 
-          Appuser.app.models.lbuser.login(credentials, (err, result) => {
-            if(result) {
-              result.Appuser = Appuser;
-              console.log("result",result)
+          Appuser.app.models.lbuser.login(credentials, (err, lbresult) => {
+            if(lbresult) {
+
+              lbresult.Appuser = result;
+              console.log("result",lbresult)
             }
-            cb(err, result);
+            cb(err, lbresult);
           });
           //var pwd = makecrypto(info.password);
           //if(pwd == result.password){//比对加密后的密码相同提示登录成功
@@ -108,9 +109,6 @@ module.exports = function(Appuser) {
           cb("账号不存在")
         }
     })
-  }
-  Appuser.login = function(info,cb){
-
   }
   Appuser.remoteMethod("loginbymobile",{
     description:'登录',
@@ -124,7 +122,69 @@ module.exports = function(Appuser) {
       }
     ],
     returns:{
-      arg:"ok",
+      root: true,
+      type:"string"
+    }
+  })
+  //重置密码;
+  Appuser.resetPasswordByMobile = function(info,cb){
+    console.log("info",info,typeof info)
+    var checkcode =Appuser.app.models.checkcode;
+    Appuser.findById(info.mobile,function(err,res){
+      if(!err){
+        if(res){//手机号存在时处理
+          checkcode.findById(info.mobile,function(err,result){
+            if(!err){
+              if(result){//查询未出错且存在code
+                if(result.expireAt.valueOf() < new Date().valueOf()){//过期时间小于当前时间,即code已过期
+                  cb("code已过期")
+                }else{//未过期
+                  var email = info.mobile+"@qq.com"
+                  if(result.code == info.verificationCode){//两个code相等正确逻辑处理
+                    Appuser.app.models.lbuser.findOne({"username" : info.mobile},function(err,reslb){
+                      Appuser.app.models.lbuser.destroyById(reslb.id,function(err){
+                        console.log(err)
+                        Appuser.app.models.lbuser.create({ "username" : info.mobile, "password":info.password , "email":email },function(err,instance){
+                          console.log("AppuserchangePassword",err,instance,"reslb.id",reslb.id)
+                          cb(null,"ok")
+                        })
+                      })
+                    })
+                    //更新lbuser的密码
+                    //Appuser.app.models.lbuser.updateAll({email:email},{password:"1234"},function(err,instance){
+                    //  console.log(instance,email)
+                    //  if(err){
+                    //    cb(err)
+                    //  }else{
+                    //    cb(null,"ok")
+                    //  }
+                    //})
+                  }else{//code不等提示code错误
+                    cb("code验证错误")
+                  }
+                }
+              }
+            }
+          })
+        }else{//手机号不存在
+          cb("手机号不存在")
+        }
+      }
+    })
+  }
+  Appuser.remoteMethod("resetPasswordByMobile",{
+    description:'通过手机号重置密码',
+    accepts:[
+      {
+        arg:"info",
+        required:true,
+        type:"object",
+        description:'{"mobile":"18712738905","password":"123456","code":"123455"}',
+        http:{source:"body"}
+      }
+    ],
+    returns:{
+      root: true,
       type:"string"
     }
   })

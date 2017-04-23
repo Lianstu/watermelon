@@ -62,7 +62,7 @@ module.exports = function(Checkcode) {
         sendMsg(mobile,sendcode,function(err,result){
           console.log("**Checkcode.sendMsg.result**",result,sendcode)
           if(err){
-            Checkcode.app.logger.error({mobile:mobile,err:err},"发送code出错")
+            //Checkcode.app.logger.error({mobile:mobile,err:err},"发送code出错")
             cb(err)
           }else{
             if(result == 0){//发送成功
