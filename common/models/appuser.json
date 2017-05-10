@@ -33,7 +33,7 @@
     "avater": {
       "type": "string"
     },
-    "lbuserId":{
+    "lbuserId": {
       "type": "Object",
       "required": true
     },

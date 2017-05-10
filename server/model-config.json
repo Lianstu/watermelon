@@ -44,5 +44,9 @@
   "review": {
     "dataSource": "mongodb",
     "public": true
+  },
+  "chat": {
+    "dataSource": "mongodb",
+    "public": true
   }
 }

@@ -1,0 +1,30 @@
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var news = io.connect('http://localhost:3000');
+  // news.on('connect', function () {
+  //   news.send('hi');
+
+  //   news.on('messag', function (msg) {
+  //       alter(msg)
+  //     console.log("msg",msg)
+  //   });
+  // });
+//  news.on('hey', function (data) {
+//    console.log(data);
+//  });
+//  news.on('news', function (data) {
+//    console.log(data);
+//    // var interval = setInterval(function(){
+//    //   news.emit('myevent', { my: 'data' });
+//    //   console.log(new Date())
+//    // },2000);
+//  });
+//  var chat = io.connect('http://localhost:8000/chat');
+//  chat.on('message1', function (data) {
+//    console.log(data)
+//  })
+//  chat.on('mychat', function (data) {
+//    console.log(data);
+//    chat.emit('chat', { my: 'a message' });
+//  });
+</script>

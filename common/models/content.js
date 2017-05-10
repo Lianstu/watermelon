@@ -31,6 +31,7 @@ module.exports = function(Content) {
         //{ time:{gt:new Date(new Date().valueOf() - 10800000 )} }
         Content.find({where:{and: [{userId:friendobj.lbuserId}] }},function(err,contentresult){//找到很多content;
           //console.log("***contentresult***",contentresult)
+          // 找到其的昵称等信息
           contentresult.forEach(function(obj,contentindex){
             Content.app.models.review.find({where:{ contentId:obj.id },order: "createAt ASC"},function(err,reviewresult){//有很多reviewresult
               //用时间排序,
@@ -39,7 +40,7 @@ module.exports = function(Content) {
                 var myres= {
                   mycontentresult:{
                     content : obj.mycontent,
-                    cout: obj.cout,
+                    count: obj.count,
                     createAt  : obj.createAt
                   },
                   con_review:reviewresult
@@ -49,7 +50,7 @@ module.exports = function(Content) {
                 var myres= {
                   mycontentresult:{
                     content : obj.mycontent,
-                    cout: obj.cout,
+                    count: obj.count,
                     createAt  : obj.createAt
                   },
                   con_review : null

@@ -146,6 +146,7 @@ module.exports = function(Appuser) {
                         console.log(err)
                         Appuser.app.models.lbuser.create({ "username" : info.mobile, "password":info.password , "email":email },function(err,instance){
                           console.log("AppuserchangePassword",err,instance,"reslb.id",reslb.id)
+                          Appuser.updateAttribute()
                           cb(null,"ok")
                         })
                       })
