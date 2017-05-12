@@ -49,10 +49,6 @@
     "dataSource": "mongodb",
     "public": true
   },
-  "file": {
-    "dataSource": null,
-    "public": true
-  },
   "container": {
     "dataSource": "watermelonapp",
     "public": true
