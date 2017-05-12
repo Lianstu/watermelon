@@ -1,30 +1,27 @@
-<script src="/socket.io/socket.io.js"></script>
-<script>
-  var news = io.connect('http://localhost:3000');
-  // news.on('connect', function () {
-  //   news.send('hi');
-
-  //   news.on('messag', function (msg) {
-  //       alter(msg)
-  //     console.log("msg",msg)
-  //   });
-  // });
-//  news.on('hey', function (data) {
-//    console.log(data);
-//  });
-//  news.on('news', function (data) {
-//    console.log(data);
-//    // var interval = setInterval(function(){
-//    //   news.emit('myevent', { my: 'data' });
-//    //   console.log(new Date())
-//    // },2000);
-//  });
-//  var chat = io.connect('http://localhost:8000/chat');
-//  chat.on('message1', function (data) {
-//    console.log(data)
-//  })
-//  chat.on('mychat', function (data) {
-//    console.log(data);
-//    chat.emit('chat', { my: 'a message' });
-//  });
-</script>
+<!DOCTYPE html >
+<html>
+  <head>
+    <link rel="stylesheet" href="css.css" >
+  </head>
+  <body>
+      <div class = "head">
+        <p style="font-family: 'helvetica neue', helvetica, arial, sans-serif; color: #12B7F5; margin-left: 10px ">watermelon download</p>
+      </div>
+      <div class="download_android">
+        <img class="and_img" src="img/and_icon.png">
+        <div class="and_dl_back">
+          <a class = "and_dl" href="/api/containers/android/download/watermelon.apk">
+            Download
+          </a>
+        </div>
+      </div>
+      <div class="download_ios">
+        <img class="ios_img" src="img/mac_icon.png">
+        <div class="ios_dl_back">
+          <a class = "ios_dl" href="/file/ios">
+            Download
+          </a>
+        </div>
+      </div>
+  </body>
+</html>

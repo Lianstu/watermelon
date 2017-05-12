@@ -12,5 +12,11 @@
     "name": "mongodb",
     "user": "watermelon",
     "connector": "mongodb"
+  },
+  "watermelonapp": {
+    "name": "watermelonapp",
+    "connector": "loopback-component-storage",
+    "provider": "filesystem",
+    "root": "./server/storage"
   }
 }
