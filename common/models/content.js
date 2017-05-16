@@ -1,5 +1,5 @@
 'use strict';
-
+var moment = require("moment")
 module.exports = function(Content) {
   /*
   2017.4.9
@@ -29,37 +29,31 @@ module.exports = function(Content) {
       console.log("friendsList",friendsList)
       friendsList.forEach(function(friendobj,index){//获取一个好友三个小时的发布内容;
         //{ time:{gt:new Date(new Date().valueOf() - 10800000 )} }
-        Content.find({where:{and: [{userId:friendobj.lbuserId}] }},function(err,contentresult){//找到很多content;
+        Content.find({where:{userId:friendobj.lbuserId },order: 'createAt DESC'},function(err,contentresult){//找到很多content;
           //console.log("***contentresult***",contentresult)
           // 找到其的昵称等信息
           contentresult.forEach(function(obj,contentindex){
+            console.log("**contentresult**",contentindex,obj)
             Content.app.models.review.find({where:{ contentId:obj.id },order: "createAt ASC"},function(err,reviewresult){//有很多reviewresult
               //用时间排序,
-              console.log("***contentindex***",contentindex,"**friend**",index,"***reviewresult***",reviewresult)
-              if(reviewresult){
-                var myres= {
-                  mycontentresult:{
-                    content : obj.mycontent,
-                    count: obj.count,
-                    createAt  : obj.createAt
-                  },
-                  con_review:reviewresult
-                }
-                data.push(myres)
-              }else{
-                var myres= {
-                  mycontentresult:{
-                    content : obj.mycontent,
-                    count: obj.count,
-                    createAt  : obj.createAt
-                  },
-                  con_review : null
-                }
-                data.push(myres)
+              //console.log("***reviewresult***",reviewresult)
+              if(!reviewresult){
+                reviewresult = [];
               }
-              console.log("***data***",data)
+              var myres= {
+                mycontentresult:{
+                  nickname:obj.nickname,
+                  content : obj.mycontent,
+                  contentid : obj.id,
+                  count: obj.count,
+                  createAt  : moment(obj.createAt).format("YYYY-MM-DD hh:mm")//
+                },
+                con_review:reviewresult
+              }
+              data.push(myres)
+              //console.log("***data***",data)
               if(index == (friendsList.length - 1) && contentindex ==  (contentresult.length -1 )){
-                console.log("****cb_data****",data)
+                console.log("****cb_data****",data,data.length)
                 cb(null,data)
               }
             })

@@ -33,7 +33,7 @@ module.exports = function(Appuser) {
                         if(result){
                           //console.log("***lbuser*****",result)
                           watermeuser.lbuserId = result.id;
-                          watermeuser.friendsList = [result.id];
+                          watermeuser.friendsList = [result];
                           //console.log("***lbuser*****",result, result.id)
                           Appuser.create(watermeuser,function(err,result){
                             if(err){

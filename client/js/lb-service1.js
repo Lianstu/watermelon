@@ -5059,6 +5059,43 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               url: urlBase + "/chats/change-stream",
               method: "POST",
             },
+
+            /**
+             * @ngdoc method
+             * @name lbServices.Chat#ChatwithFriend
+             * @methodOf lbServices.Chat
+             *
+             * @description
+             *
+             * 和好友单聊
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *   This method does not accept any parameters.
+             *   Supply an empty object or omit this argument altogether.
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `发布同一频道` – `{string}` - 传入一个唯一参数
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * Data properties:
+             *
+             *  - `result` – `{string=}` -
+             */
+            "ChatwithFriend": {
+              url: urlBase + "/chats/:pubsub",
+              method: "POST",
+            },
           }
         );
 

@@ -17,6 +17,6 @@
     "name": "watermelonapp",
     "connector": "loopback-component-storage",
     "provider": "filesystem",
-    "root": "./server/storage"
+    "root": "/Users/lianshaoshuai/watermelon/server/storage"
   }
 }

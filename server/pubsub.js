@@ -11,7 +11,8 @@ module.exports = {
             var modelId        = options.modelId;
             if(method === 'POST'){
                 //console.log('Posting new data');
-                var name = '/' + collectionName + '/' + method;
+                var name = '/' + collectionName + '/' + method; //name的格式是/chat/id/post
+                console.log('***publish_name***',name,data)
                 socket.emit(name, data);
             }
             else{
