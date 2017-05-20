@@ -7,19 +7,16 @@
   },
   "properties": {
     "createAt": {
-      "type": "date",
-      "required": true
+      "type": "date"
     },
     "mycontent": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "up": {
       "type": "number"
     },
     "count": {
       "type": "number",
-      "required": true,
       "default": 0
     }
   },
@@ -28,7 +25,7 @@
     "appusers": {
       "type": "belongsTo",
       "model": "appuser",
-      "foreignKey": "userId"
+      "foreignKey": ""
     },
     "reviews": {
       "type": "hasMany",

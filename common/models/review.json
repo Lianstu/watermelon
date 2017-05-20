@@ -19,7 +19,7 @@
     "appuser": {
       "type": "belongsTo",
       "model": "appuser",
-      "foreignKey": "userId"
+      "foreignKey": ""
     },
     "content": {
       "type": "belongsTo",

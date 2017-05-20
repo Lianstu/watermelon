@@ -6,33 +6,11 @@
     "validateUpsert": true
   },
   "properties": {
-    "mynickname": {
-      "type": "string",
-      "required": true
-    },
-    "myavater": {
-      "type": "string",
-      "required": true
-    },
-    "mydeviceId": {
-      "type": "string",
-      "required": true
-    },
-    "yournickname": {
-      "type": "string",
-      "required": true
-    },
-    "youravater": {
+    "uniqueChatID": {
       "type": "string"
     },
-    "yourdeviceId": {
-      "type": "string",
-      "required": true
-    },
     "chat_content": {
-      "type": [
-        "any"
-      ],
+      "type": "array",
       "required": true
     }
   },

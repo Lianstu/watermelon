@@ -5,7 +5,6 @@ module.exports = function(Appuser) {
   config.disableCRUDMethods(Appuser)
   //注册
   Appuser.register = function(userInfo,cb){
-    console.log(userInfo)
     var watermeuser={};
     watermeuser.mobile = userInfo.mobile;
     watermeuser.code = userInfo.code;
@@ -15,7 +14,6 @@ module.exports = function(Appuser) {
     watermeuser.createAt = new Date();
     watermeuser.watermelonNo = makewatermelonNo();//以时间戳形式生成
     watermeuser.avater = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1491125392261&di=6cad18adb957545015d2b34666b1eb7c&imgtype=0&src=http%3A%2F%2Fimgqn.koudaitong.com%2Fupload_files%2F2015%2F05%2F15%2FFuqVchtUU1Tw_PVD6bK321G9ez6Q.jpg"
-    console.log(watermeuser)
     //先查看mobile是否被注册,如果注册提示已注册;如果未注册查看code是否过期以及准确,正确情况下创建数据
     var checkcode =Appuser.app.models.checkcode;
     Appuser.findById(watermeuser.mobile,function(err,res){
@@ -28,13 +26,15 @@ module.exports = function(Appuser) {
                   cb("code已过期")
                 }else{//未过期
                   if(result.code == userInfo.code){//两个code相等正确逻辑处理
-                    Appuser.app.models.lbuser.create({username:userInfo.mobile,password:userInfo.password,email:userInfo.mobile+"@qq.com"},function(err,result){
+                    Appuser.app.models.lbuser.create({username:userInfo.mobile,password:userInfo.password,email:userInfo.mobile+"@qq.com"},function(err,appuserresult){
+                      console.log("***appuserresult*****",appuserresult,'err',err)
                       if(!err){
-                        if(result){
-                          //console.log("***lbuser*****",result)
-                          watermeuser.lbuserId = result.id;
-                          watermeuser.friendsList = [result];
-                          //console.log("***lbuser*****",result, result.id)
+                        console.log("***code !err***")
+                        if(appuserresult){
+                          console.log("***code appuserresultr***")
+                          watermeuser.lbuserId = appuserresult.id;
+                          watermeuser.friendsList = [{lbuserId:watermeuser.lbuserId,uniqueChatID : ""}];
+                          console.log("***lbuser*****",appuserresult, appuserresult.id,"watermeuser",watermeuser)
                           Appuser.create(watermeuser,function(err,result){
                             if(err){
                               userInfo.app.logger.error(watermeuser,"创建数据失败")
